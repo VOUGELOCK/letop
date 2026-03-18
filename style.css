@@ -1,0 +1,262 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #8b4513; /* Коричневый */
+    --secondary-color: #deb887; /* Древесный */
+    --background-color: #f4ecd8; /* Старая бумага */
+    --text-color: #2c1810;
+    --accent-color: #b8860b; /* Потертое золото */
+    --border-color: #c0a080;
+
+body {
+    background-color: var(--background-color);
+    background-image: 
+        linear-gradient(45deg, rgba(139, 69, 19, 0.05) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(139, 69, 19, 0.05) 25%, transparent 25%);
+    background-size: 60px 60px;
+}
+
+/* Плавное появление записей */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chronicle-entry {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+/* Задержка для каждой записи */
+.chronicle-entry:nth-child(1) { animation-delay: 0.1s; }
+.chronicle-entry:nth-child(2) { animation-delay: 0.2s; }
+.chronicle-entry:nth-child(3) { animation-delay: 0.3s; }
+/* и так далее */
+
+/* Эффект при наведении на запись */
+.chronicle-entry {
+    position: relative;
+    overflow: hidden;
+}
+
+.chronicle-entry::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.chronicle-entry:hover::after {
+    left: 100%;
+}
+
+header {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+main {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 20px;
+}
+
+.search-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#searchInput {
+    flex: 1;
+    padding: 15px;
+    font-size: 1.1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+#searchButton {
+    padding: 0 25px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#searchButton:hover {
+    background: #2980b9;
+}
+
+.stats {
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    display: flex;
+    gap: 20px;
+}
+
+.chronicle-content {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+.chronicle-entry {
+    background: rgba(255, 255, 240, 0.9);
+    box-shadow: 
+        0 4px 8px rgba(0,0,0,0.1),
+        inset 0 1px 4px rgba(255,255,240,0.8);
+    border-left: 4px solid var(--primary-color);
+    position: relative;
+}
+
+.chronicle-entry:last-child {
+    border-bottom: none;
+}
+
+.entry-date {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    font-family: monospace;
+    margin-bottom: 5px;
+}
+
+.intro-blocks {
+    margin: 30px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.intro-block {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    border-left: 5px solid;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.intro-block:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.intro-block.preface {
+    border-left-color: #e67e22; /* Оранжевый */
+    background: linear-gradient(to right, #fff, #fef5e7);
+}
+
+.intro-block.history {
+    border-left-color: #2980b9; /* Синий */
+    background: linear-gradient(to right, #fff, #e8f0fe);
+}
+
+.intro-title {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.intro-content {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #34495e;
+}
+
+.intro-content p {
+    margin-bottom: 15px;
+}
+
+.intro-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 600px) {
+    .intro-blocks {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .intro-title {
+        font-size: 1.3rem;
+    }
+    
+    .intro-content {
+        font-size: 1rem;
+    }
+}
+
+
+.entry-title {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.entry-text {
+    font-size: 1.1rem;
+    white-space: pre-wrap;
+}
+
+.entry-text mark {
+    background: #f1c40f;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.loading, .no-results {
+    text-align: center;
+    padding: 40px;
+    color: #95a5a6;
+    font-style: italic;
+}
+
+.no-results {
+    font-size: 1.2rem;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: #7f8c8d;
+    border-top: 1px solid #ecf0f1;
+    margin-top: 2rem;
+}
